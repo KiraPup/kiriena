@@ -6,7 +6,7 @@ import pygame #работа со звуком
 import time
 
 t = 0
-
+music =  False
 
 #делаем функцию на кнопку сет, чтобы нажималась и устанавливалось напоминание
 def set(): #установка напомиания
@@ -17,10 +17,10 @@ def set(): #установка напомиания
         try:
             hour = int(rem.split(":")[0]) #сплит разделит на два числа часы и минуты
             minute = int(rem.split(":")[1])
-            now = datetime.now() #текущее время
+            now = datetime.datetime.now() #текущее время
             print(now)
             #теперь устанавливаем то время, но которое нужно напоминание
-            dt = now.replace(hour=hour, minute=minute) #меняем часы и минуты которые нужны
+            dt = now.replace(hour=hour, minute=minute, second=0) #меняем часы и минуты которые нужны
             print(dt)
             t = dt.timestamp() #временная метка в миллиардах секунды
             print(t)
@@ -41,16 +41,33 @@ def check():
 
 #Функция включения музыки
 def play_snd():
+    global music
+    music = True
     pygame.mixer.init()
     pygame.mixer.music.load("reminder.mp3")#загружаем музыку
     pygame.mixer.music.play() #включили музыку
 
+#Функция выключения музыки
+def stop_music():
+    global music #если музыка играет то знае тру, если нет то фолс
+    if music:
+        pygame.mixer.music.stop()
+        music = False
+    label.config(text = 'Установить новое анпоминание')
+
+
 
 window=Tk()
 window.title("Напоминание")
-label = Label(text = 'Установить напоминание')
+label = Label(text = 'Установить напоминание', font= ('Arial', 20))
 label.pack(pady=10) #отсутуп по вертикали
+
 set_button = Button(text = 'Установить напоминаение',command=set) #set команда установки
 set_button.pack()
+
+stop_button = Button(text = 'Остановить музыку', command = stop_music)#кнопка отключения музыки
+stop_button.pack()
+check() #запустить музыку
+
 
 window.mainloop()
