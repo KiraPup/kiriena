@@ -39,6 +39,12 @@ def check():
     window.after(10000, check) #вызываем черет 10 000 милисекунд включать звук, проверку выполняет 6 раз в минуту
 
 
+#Функция включения музыки
+def play_snd():
+    pygame.mixer.init()
+    pygame.mixer.music.load("reminder.mp3")#загружаем музыку
+    pygame.mixer.music.play() #включили музыку
+
 
 window=Tk()
 window.title("Напоминание")
