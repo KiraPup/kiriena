@@ -24,6 +24,7 @@ def set(): #установка напомиания
             print(dt)
             t = dt.timestamp() #временная метка в миллиардах секунды
             print(t)
+            Label.config(text = f'Напоминание на {hour:02}:{minute:02}')
         except Exception as e:
             mb.showerror("Ошибка!", f' Произошла ошибка {e}')
 
@@ -60,13 +61,13 @@ def stop_music():
 window=Tk()
 window.title("Напоминание")
 label = Label(text = 'Установить напоминание', font= ('Arial', 20))
-label.pack(pady=10) #отсутуп по вертикали
+label.pack(pady=18) #отсутуп по вертикали
 
 set_button = Button(text = 'Установить напоминаение',command=set) #set команда установки
-set_button.pack()
+set_button.pack(pady=10)
 
 stop_button = Button(text = 'Остановить музыку', command = stop_music)#кнопка отключения музыки
-stop_button.pack()
+stop_button.pack(pady=10)
 check() #запустить музыку
 
 
